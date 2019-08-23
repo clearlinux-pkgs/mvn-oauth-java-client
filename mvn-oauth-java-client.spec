@@ -4,16 +4,20 @@
 #
 Name     : mvn-oauth-java-client
 Version  : 1.23.0
-Release  : 1
+Release  : 2
 URL      : https://github.com/googleapis/google-oauth-java-client/archive/1.23.0.tar.gz
 Source0  : https://github.com/googleapis/google-oauth-java-client/archive/1.23.0.tar.gz
-Source1  : https://repo1.maven.org/maven2/com/google/oauth-client/google-oauth-client-parent/1.23.0/google-oauth-client-parent-1.23.0.pom
-Source2  : https://repo1.maven.org/maven2/com/google/oauth-client/google-oauth-client/1.23.0/google-oauth-client-1.23.0.jar
-Source3  : https://repo1.maven.org/maven2/com/google/oauth-client/google-oauth-client/1.23.0/google-oauth-client-1.23.0.pom
+Source1  : https://repo1.maven.org/maven2/com/google/oauth-client/google-oauth-client-parent/1.22.0/google-oauth-client-parent-1.22.0.pom
+Source2  : https://repo1.maven.org/maven2/com/google/oauth-client/google-oauth-client-parent/1.23.0/google-oauth-client-parent-1.23.0.pom
+Source3  : https://repo1.maven.org/maven2/com/google/oauth-client/google-oauth-client/1.22.0/google-oauth-client-1.22.0.jar
+Source4  : https://repo1.maven.org/maven2/com/google/oauth-client/google-oauth-client/1.22.0/google-oauth-client-1.22.0.pom
+Source5  : https://repo1.maven.org/maven2/com/google/oauth-client/google-oauth-client/1.23.0/google-oauth-client-1.23.0.jar
+Source6  : https://repo1.maven.org/maven2/com/google/oauth-client/google-oauth-client/1.23.0/google-oauth-client-1.23.0.pom
 Summary  : No detailed summary available
 Group    : Development/Tools
-License  : Apache-2.0
+License  : Apache-2.0 BSD-3-Clause CDDL-1.1
 Requires: mvn-oauth-java-client-data = %{version}-%{release}
+Requires: mvn-oauth-java-client-license = %{version}-%{release}
 
 %description
 # Google OAuth Client Library for Java
@@ -28,19 +32,43 @@ Group: Data
 data components for the mvn-oauth-java-client package.
 
 
+%package license
+Summary: license components for the mvn-oauth-java-client package.
+Group: Default
+
+%description license
+license components for the mvn-oauth-java-client package.
+
+
 %prep
+%setup -q -n google-oauth-java-client-1.23.0
 
 %build
 
 %install
+mkdir -p %{buildroot}/usr/share/package-licenses/mvn-oauth-java-client
+cp LICENSE %{buildroot}/usr/share/package-licenses/mvn-oauth-java-client/LICENSE
+cp google-oauth-client-assembly/LICENSE.txt %{buildroot}/usr/share/package-licenses/mvn-oauth-java-client/google-oauth-client-assembly_LICENSE.txt
+cp google-oauth-client-assembly/dependencies/APACHE-LICENSE.txt %{buildroot}/usr/share/package-licenses/mvn-oauth-java-client/google-oauth-client-assembly_dependencies_APACHE-LICENSE.txt
+cp google-oauth-client-assembly/dependencies/BSD-LICENSE.txt %{buildroot}/usr/share/package-licenses/mvn-oauth-java-client/google-oauth-client-assembly_dependencies_BSD-LICENSE.txt
+cp google-oauth-client-assembly/dependencies/CDDL-LICENSE.txt %{buildroot}/usr/share/package-licenses/mvn-oauth-java-client/google-oauth-client-assembly_dependencies_CDDL-LICENSE.txt
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client-parent/1.22.0
+cp %{SOURCE1} %{buildroot}/usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client-parent/1.22.0/google-oauth-client-parent-1.22.0.pom
+
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client-parent/1.23.0
-cp %{SOURCE1} %{buildroot}/usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client-parent/1.23.0
+cp %{SOURCE2} %{buildroot}/usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client-parent/1.23.0/google-oauth-client-parent-1.23.0.pom
+
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client/1.22.0
+cp %{SOURCE3} %{buildroot}/usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client/1.22.0/google-oauth-client-1.22.0.jar
+
+mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client/1.22.0
+cp %{SOURCE4} %{buildroot}/usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client/1.22.0/google-oauth-client-1.22.0.pom
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client/1.23.0
-cp %{SOURCE2} %{buildroot}/usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client/1.23.0
+cp %{SOURCE5} %{buildroot}/usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client/1.23.0/google-oauth-client-1.23.0.jar
 
 mkdir -p %{buildroot}/usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client/1.23.0
-cp %{SOURCE3} %{buildroot}/usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client/1.23.0
+cp %{SOURCE6} %{buildroot}/usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client/1.23.0/google-oauth-client-1.23.0.pom
 
 
 %files
@@ -48,6 +76,17 @@ cp %{SOURCE3} %{buildroot}/usr/share/java/.m2/repository/com/google/oauth-client
 
 %files data
 %defattr(-,root,root,-)
+/usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client-parent/1.22.0/google-oauth-client-parent-1.22.0.pom
 /usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client-parent/1.23.0/google-oauth-client-parent-1.23.0.pom
+/usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client/1.22.0/google-oauth-client-1.22.0.jar
+/usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client/1.22.0/google-oauth-client-1.22.0.pom
 /usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client/1.23.0/google-oauth-client-1.23.0.jar
 /usr/share/java/.m2/repository/com/google/oauth-client/google-oauth-client/1.23.0/google-oauth-client-1.23.0.pom
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/mvn-oauth-java-client/LICENSE
+/usr/share/package-licenses/mvn-oauth-java-client/google-oauth-client-assembly_LICENSE.txt
+/usr/share/package-licenses/mvn-oauth-java-client/google-oauth-client-assembly_dependencies_APACHE-LICENSE.txt
+/usr/share/package-licenses/mvn-oauth-java-client/google-oauth-client-assembly_dependencies_BSD-LICENSE.txt
+/usr/share/package-licenses/mvn-oauth-java-client/google-oauth-client-assembly_dependencies_CDDL-LICENSE.txt
